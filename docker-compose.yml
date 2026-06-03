@@ -1,6 +1,7 @@
 services:
   themes:
     image: epam/ai-dial-chat-themes:development
+    platform: linux/amd64
     ports:
       - "3001:8080"
 
@@ -8,7 +9,7 @@ services:
     ports:
       - "3000:3000"
     image: epam/ai-dial-chat:development
-#    platform: linux/amd64
+    platform: linux/amd64
     depends_on:
       - themes
       - core
@@ -46,6 +47,7 @@ services:
     ports:
       - "8080:8080"
     image: epam/ai-dial-core:development
+    platform: linux/amd64
     environment:
       'AIDIAL_SETTINGS': '/opt/settings/settings.json'
       'JAVA_OPTS': '-Dgflog.config=/opt/settings/gflog.xml'
@@ -65,6 +67,7 @@ services:
 
   adapter-dial:
     image: epam/ai-dial-adapter-dial:development
+    platform: linux/amd64
     environment:
       DIAL_URL: "http://core:8080"
       LOG_LEVEL: "INFO"
@@ -142,7 +145,7 @@ services:
     ports:
       - "8052:5000"
     environment:
-      - DIAL_API_KEY=${DIAL_API_KEY}
+      - DIAL_API_KEY=dial_api_key
       - DEPLOYMENT_NAME=gpt-4o
       - DIAL_ENDPOINT=http://core:8080
       - PYINTERPRETER_MCP_URL=http://python-interpreter-mcp-server:8000/mcp
